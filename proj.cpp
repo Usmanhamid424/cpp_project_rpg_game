@@ -31,3 +31,45 @@ void displayStats(const Player& p) {
     if (empty) cout << "Empty";
     cout << "\n===============\n";
 }
+void chooseBackstory(Player& p) {
+    cout << "\nChoose your upbringing:\n";
+    cout << "1. Noble (+1 Intelligence, +30 gold)\n";
+    cout << "2. Orphan (+1 Dexterity)\n";
+    cout << "3. Farmer (+1 Strength)\n> ";
+    int c; 
+    cin >> c;
+    switch(c) {
+        case 1: p.intelligence++; p.gold += 30; cout << "You were raised in luxury.\n"; break;
+        case 2: p.dexterity++; cout << "You grew up on the harsh streets.\n"; break;
+        case 3: p.strength++; cout << "You worked the fields with iron will.\n"; break;
+        default: cout << "You are a simple peasant.\n"; break;
+    }
+}
+void chooseRace(Player& p) {
+    cout << "\nChoose your race:\n";
+    cout << "1. Human (+1 Intelligence)\n";
+    cout << "2. Elf (+1 Dexterity)\n";
+    cout << "3. Dwarf (+1 Strength)\n> ";
+    int c; 
+    cin >> c;
+    switch(c) {
+        case 1: p.intelligence++; cout << "Human ambition burns within.\n"; break;
+        case 2: p.dexterity++; cout << "Elven grace flows through you.\n"; break;
+        case 3: p.strength++; cout << "Dwarven endurance is yours.\n"; break;
+        default: cout << "Your bloodline is unknown...\n"; break;
+    }
+}
+void chooseClass(Player& p) {
+    cout << "\nChoose your profession:\n";
+    cout << "1. Warrior (+2 Strength)\n";
+    cout << "2. Mage (+2 Intelligence)\n";
+    cout << "3. Rogue (+2 Dexterity)\n";
+    int c;
+    cin >> c;
+    switch(c) {
+        case 1: p.strength += 2; cout << "You are a fearsome Warrior!\n"; break;
+        case 2: p.intelligence += 2; cout << "You wield powerful Magic!\n"; break;
+        case 3: p.dexterity += 2; cout << "You are a deadly Rogue!\n"; break;
+        default: cout << "You forge your own destiny.\n"; break;
+    }
+}
