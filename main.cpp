@@ -36,3 +36,24 @@ void displayStats(const Player &player) {
     cout << "You have " << player.dexterity << " dexterity\n";
     cout << "You have " << player.health << " health\n";
 }
+void printInventory(string inv[], int size) {
+    cout << "Inventory:\n";
+    for (int i = 0; i < size; i++) {
+        if (!inv[i].empty()) {
+            cout << inv[i] << "\n";
+        }
+    }
+}
+void increaseStat(int *stat, int amount) {
+    *stat += amount;
+}
+int attackThresholds[4][2] = {{92, 10}, {75, 5}, {45, 3}, {0, 2}};
+string attackTypes[4] = {"speical", "heavy", "normal", "light"};
+void printInventory(string inv[], int size) {
+    cout << "Inventory:\n";
+    for (int i = 0; i < size; i++) {
+        if (!inv[i].empty()) {
+            cout << inv[i] << "\n";
+        }
+    }
+}
