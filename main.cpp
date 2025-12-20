@@ -55,8 +55,6 @@ int getPlayerDamage(int fightType) {
     else if (fightType == 3) return 2;
     return 0;
 }
-
-// Function to get enemy attack (uses multidimensional array, pass by reference for damage and type)
 void getEnemyAttack(int random, int &damage, string &type) {
     for (int i = 0; i < 4; i++) {
         if (random >= attackThresholds[i][0]) {
@@ -174,5 +172,137 @@ void recursiveBattleRound(Player &player, int &enehp, string inventory[]) {
     }
     if (enehp >= 0 && player.health >= 0) {
         recursiveBattleRound(player, enehp, inventory);
+    }
+}
+void saveGame(const Player &player, string inventory[]) {
+    ofstream file("savegame.txt");
+    if (file.is_open()) {
+        file << player.name << endl;
+        file << player.health << endl;
+        file << player.strength << endl;
+        file << player.intelligence << endl;
+        file << player.dexterity << endl;
+        file << player.rep << endl;
+        file << player.money << endl;
+        for (int i = 0; i < 10; i++) {
+            file << inventory[i] << endl;
+        }
+        file.close();
+        cout << "Game saved!\n";
+    } else {
+        cout << "Unable to save game.\n";
+    }
+}
+void loadGame(Player &player, string inventory[]) {
+    ifstream file("savegame.txt");
+    if (file.is_open()) {
+        getline(file, player.name);
+        file >> player.health;
+        file >> player.strength;
+        file >> player.intelligence;
+        file >> player.dexterity;
+        file >> player.rep;
+        file >> player.money;
+        for (int i = 0; i < 10; i++) {
+            getline(file, inventory[i]);
+        }
+        file.close();
+        cout << "Game loaded!\n";
+    } else {
+        cout << "No save file found.\n";
+    }
+}
+int main() {
+    int number;
+    Player player;
+    string inventory[10];
+    int con;
+    player.money = 50;
+    player.rep = 10;
+    int quest;
+    int enehp = 10;
+    int health = 20;
+    int fight;
+    int job;
+    player.strength = 5;
+    player.intelligence = 5;
+    player.dexterity = 5;
+    cout << "Welcome to the adventure game\n";
+    cout << "Once the world of Elarion thrived in harmony its kingdoms united under peace ";
+    cout << "Malakar the Shadowbinder rose, shattering lands with fire and shadow. ";
+    cout << "Hope faded, cities crumbled, and darkness claimed the skies. ";
+    cout << "Prophecy whispered of a chosen hero, destined to rise. ";
+    cout << "From the ashes, a light would be born to end the darkness.\n";
+    cout << "You are a brave adventurer seekings to find your true purpose.\n";
+    cout << "Your name is: \n";
+    cin >> player.name;
+    cout << "Chose your upbringing\n";
+    cout << "1. Noble Raised in luxury\n";
+    cout << "2. Orphan Grew up on the streets\n";
+    cout << "3. Farmer Hard-working and tough from labor in the fields\n";
+    int backstory;
+    cin >> backstory;
+    switch (backstory) {
+        case 1:
+            cout << "You are a smart noble\n";
+            increaseStat(&player.intelligence, 1);
+            player.money += 30;
+            break;
+        case 2:
+            cout << "You are a fast orphan\n";
+            increaseStat(&player.dexterity, 1);
+            break;
+        case 3:
+            cout << "You are a strong farmer\n";
+            increaseStat(&player.strength, 1);
+            break;
+        default:
+            cout << "Invalid choice, you are a peasant\n";
+            break;
+    }
+    cout << "Chose your race\n";
+    cout << "1. Human Versatile and ambitious, humans thrive by adapting to any challenge in Elarion\n";
+    cout << "2. Elf Children of the ancient forests, elves carry centuries of wisdom but are wary of outsiders\n";
+    cout << "3. Dwarf Forged in stone and fire, dwarves are stubborn warriors who value strength and honor above all\n";
+    int race;
+    cin >> race;
+    switch (race) {
+        case 1:
+            cout << "You are a smart human\n";
+            increaseStat(&player.intelligence, 1);
+            break;
+        case 2:
+            cout << "You are a fast elf\n";
+            increaseStat(&player.dexterity, 1);
+            break;
+        case 3:
+            cout << "You are a strong dwarf\n";
+            increaseStat(&player.strength, 1);
+            break;
+        default:
+            cout << "Invalid choice, you are a peasant\n";
+            break;
+    }
+    cout << "Choose your profession:\n";
+    cout << "1. Warrior\n";
+    cout << "2. Mage\n";
+    cout << "3. Rogue\n";
+    cin >> job;
+    switch (job) {
+        case 1:
+            cout << "You are a strong warrior\n";
+            increaseStat(&player.strength, 2);
+            break;
+        case 2:
+            cout << "You are a wise mage\n";
+            increaseStat(&player.intelligence, 2);
+            break;
+        case 3:
+            cout << "You are a stealthy rogue\n";
+            increaseStat(&player.dexterity, 2);
+            break;
+        default:
+            cout << "Invalid choice, you are a peasant\n";
+            break;
     }
 }
