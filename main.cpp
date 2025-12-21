@@ -782,4 +782,217 @@ int main() {
             cout << "Invalid choice, you are a peasant\n";
             break;
     }
+    cout << "Do you wish to continue? (1 = yes, 0 = no)\n";
+    cin >> con;
+    while (con >= 1) {
+        cout << "\nYou are in a forest\n";
+        cout << "Enter a number between 1 and 6:\n";
+        cout << "1 To go Strength route\n";
+        cout << "2 To go Intelligence route\n";
+        cout << "3 To go Dexterity route\n";
+        cout << "4 To fight enemy\n";
+        cout << "5 To fight the evil wizard\n";
+        cout << "6 To see your stats\n";
+        cout << "7 To train\n";
+        cout << "8 rescue mission\n";
+        cout << "-1 To end the game\n";
+        cin >> number;
+        switch (number) {
+            case -1: {
+                cout << "Ending the game.\n";
+                return 0;
+            }
+            case 1: {
+                cout << "You have gone strength route\n";
+                cout << "You see trees\n";
+                cout << "You see a path\n";
+                cout << "What do you wish to do?\n";
+                cout << "1 To follow the path\n";
+                cout << "2 To go back\n";
+                int choice;
+                cin >> choice;
+                do {
+                    switch (choice) {
+                        case 1:
+                            cout << "You follow the path\n";
+                            cout << "You see a clearing\n";
+                            cout << "You see a sword stuck in the ground\n";
+                            if (player.strength > 6) {
+                                cout << "You are strong enough to pull the sword out\n";
+                                cout << "You have obtained the Sword of Light\n";
+                                inventory[0] = "Sword";
+                                choice = 2;
+                            } else {
+                                cout << "You are not strong enough to pull the sword out\n";
+                                choice = 2;
+                            }
+                            break;
+                        case 2:
+                            cout << "You go back\n";
+                            break;
+                        default:
+                            cout << "Invalid choice, you go back\n";
+                            choice = 2;
+                            break;
+                    }
+                } while (choice != 2);
+                break;
+            }
+            case 2: {
+                cout << "You have gone the intelligence route\n";
+                cout << "You see a clearing with a book on a pedestal\n";
+                if (player.intelligence > 6) {
+                    cout << "You are smart enough to understand the book\n";
+                    cout << "You have obtained the Tome\n";
+                    inventory[1] = "Tome";
+                } else {
+                    cout << "You are not smart enough to understand the book\n";
+                }
+                break;
+            }
+            case 3: {
+                cout << "You have gone the dexterity route\n";
+                cout << "You see a clearing with wolves guarding boots\n";
+                if (player.dexterity > 6) {
+                    cout << "You are fast enough to grab the boots\n";
+                    cout << "You have obtained the Boots of Speed\n";
+                    inventory[2] = "Boots";
+                } else {
+                    cout << "You are not fast enough to grab the boots\n";
+                }
+                break;
+            }
+            case 4: {
+                Battle(player, enehp, player.strength, player.intelligence, player.dexterity, inventory);
+                break;
+            }
+            case 5: {
+                fightBoss(player, inventory);
+                break;
+            }
+            case 6: {
+                displayStats(player);
+                break;
+            }
+            case 7: {
+                cout << "You have gone to train\n";
+                cout << "Choose an attribute to train:\n";
+                cout << "1 Strength\n";
+                cout << "2 Intelligence\n";
+                cout << "3 Dexterity\n";
+                int train;
+                cin >> train;
+                switch (train) {
+                    case 1:
+                        increaseStat(&player.strength, 1);
+                        cout << "Your strength is now " << player.strength << "\n";
+                        break;
+                    case 2:
+                        increaseStat(&player.intelligence, 1);
+                        cout << "Your intelligence is now " << player.intelligence << "\n";
+                        break;
+                    case 3:
+                        increaseStat(&player.dexterity, 1);
+                        cout << "Your dexterity is now " << player.dexterity << "\n";
+                        break;
+                    default:
+                        cout << "Invalid choice, you did not train\n";
+                        break;
+                }
+                if (player.strength > 10 || player.intelligence > 10 || player.dexterity > 10) {
+                    cout << "You have trained enough to face Malakar!\n";
+                }
+                break;
+            }
+            case 8: {
+                cout << "You see a villager in distress\n";
+                cout << "They tell you that their daughter has been kidnapped by goblins\n";
+                cout << "They beg you to rescue her\n";
+                cout << "They will reward you with a family relic\n";
+                cout << "Do you accept the quest? (1 = yes, 0 = no)\n";
+                cin >> quest;
+                switch (quest) {
+                    case 1:
+                        cout << "You have accepted the quest\n";
+                        cout << "You go to the goblin village\n";
+                        cout << "How do you wish to enter the village\n";
+                        cout << "1 Go full attack\n";
+                        cout << "2 Sneak in\n";
+                        int no;
+                        cin >> no;
+                        switch (no) {
+                            case 1:
+                                Battle(player, enehp, player.strength, player.intelligence, player.dexterity, inventory);
+                                cout << "You have rescued the daughter\n";
+                                cout << "You have gone back to the villager\n";
+                                cout << "The villager gives you the family relic\n";
+                                inventory[4] = "Family Relic";
+                                break;
+                            case 2:
+                                if (player.dexterity >= 5) {
+                                    cout << "You have successfully sneaked in\n";
+                                    cout << "You see the daughter but you also see the goblins treasure\n";
+                                    cout << "What do you wish to do\n";
+                                    cout << "1 Rescue the daughter\n";
+                                    cout << "2 Steal the goblin treasure\n";
+                                    int decision;
+                                    cin >> decision;
+                                    switch (decision) {
+                                        case 1:
+                                            cout << "You have rescued the daughter\n";
+                                            cout << "You have gone back to the villager\n";
+                                            cout << "The villager gives you the family relic\n";
+                                            inventory[4] = "Family Relic";
+                                            break;
+                                        case 2:
+                                            cout << "You have stolen the goblin treasure\n";
+                                            player.money += 100;
+                                            cout << "You have gone back to the villager\n";
+                                            cout << "The villager is angry that you did not rescue his daughter\n";
+                                            cout << "He refuses to give you the family relic\n";
+                                            cout << "You can steal the family relic\n";
+                                            cout << "Do you wish to steal the relic\n";
+                                            cout << "1 yes\n";
+                                            cout << "2 no\n";
+                                            int ste;
+                                            cin >> ste;
+                                            switch (ste) {
+                                                case 1: {
+                                                    cout << "You attack the villager while he is crying\n";
+                                                    cout << "You steal the family relic\n";
+                                                    inventory[4] = "Family Relic";
+                                                    player.rep -= 5;
+                                                    cout << "You steal all the money he has\n";
+                                                    player.money += 10;
+                                                    break;
+                                                }
+                                                case 2: {
+                                                    cout << "You don’t steal the relic and leave\n";
+                                                    break;
+                                                }
+                                            }
+                                            break;
+                                        default:
+                                            cout << "Invalid choice, you go back empty handed\n";
+                                            break;
+                                    }
+                                } else {
+                                    cout << "You were not stealthy enough and got caught\n";
+                                    cout << "You have been defeated by the goblins\nGame Over\n";
+                                    return 0;
+                                }
+                                break;
+                            default:
+                                cout << "Invalid choice, you leave\n";
+                                break;
+                        }
+                        break;
+                    default:
+                        cout << "You refuse to help and leave\n";
+                        break;
+                }
+                break;
+            }
+        }
+    }
 }
