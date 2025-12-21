@@ -3,6 +3,7 @@
 #include <ctime>
 #include <fstream>
 using namespace std;
+
 struct Player {
     string name;
     int health;
@@ -172,6 +173,482 @@ void recursiveBattleRound(Player &player, int &enehp, string inventory[]) {
     }
     if (enehp >= 0 && player.health >= 0) {
         recursiveBattleRound(player, enehp, inventory);
+    }
+}
+
+void fightBoss(Player &player, string inventory[]) {
+    int bosshp = 20;
+    cout << "You face Malakar the Shadowbinder!\n";
+    if (player.rep < 10) {
+        cout << "Malakar has heard of your evil deeds\n";
+        cout << "He asks if you wish to join him\n";
+        cout << "What will you do?\n";
+        cout << "1 Join him\n";
+        cout << "2 Fight him\n";
+        cout << "3 kill him and take his place\n";
+        int yo;
+        cin >> yo;
+        switch (yo) {
+            case 1:
+                cout << "You have joined Malakar\n";
+                cout << "You invade the human plains with him\n";
+                cout << "You kill humans as you see them\n";
+                cout << "They fear you\n";
+                cout << "You are one of the best in the world but are only the right hand man\n";
+                exit(0);
+            case 2:
+                cout << "You have chosen to fight Malakar\n";
+                cout << "How will you attack him?\n";
+                cout << "1 With strength\n";
+                cout << "2 With intelligence\n";
+                cout << "3 With dexterity\n";
+                int attack;
+                cin >> attack;
+                if (attack == 1 && player.strength >= 7 || inventory[0] == "Sword") {
+                    cout << "You have attacked enemy for 5 damage\n";
+                    bosshp = 15;
+                    cout << "You have been attacked for 3 damage\n";
+                    player.health = player.health - 3;
+                    cout << "Your next attack\n";
+                    cout << "How will you attack\n";
+                    cout << "1 With strength\n";
+                    cout << "2 With intelligence\n";
+                    cout << "3 With dexterity\n";
+                    cout << "4 with Sword of light can only be used once \n";
+                    cout << "5 heal with health potion can only be used once \n";
+                    int start;
+                    cin >> start;
+                    do {
+                        cout << "Confirm your attack\n";
+                        cout << "1 With strength\n";
+                        cout << "2 With intelligence\n";
+                        cout << "3 With dexterity\n";
+                        cout << "4 with Tome of knowledge can only be used once";
+                        cout << "5 use health potion can only be used once \n";
+                        cin >> start;
+                        switch (start) {
+                            case 1:
+                                cout << "You have attacked enemy for 5 damage\n";
+                                bosshp = bosshp - 5;
+                                cout << "You have been attacked for 2 damage\n";
+                                player.health = player.health - 2;
+                                break;
+                            case 2:
+                                cout << "You have attacked enemy for 3 damage\n";
+                                bosshp = bosshp - 3;
+                                cout << "You have been attacked for 2 damage\n";
+                                player.health = player.health - 2;
+                                break;
+                            case 3:
+                                cout << "You have attacked enemy for 2 damage\n";
+                                bosshp = bosshp - 2;
+                                cout << "You have been attacked for 2 damage\n";
+                                player.health = player.health - 2;
+                                break;
+                            case 4:
+                                cout << "You have used the Sword of Light\n";
+                                bosshp = bosshp - 10;
+                                cout << "You have been attacked for 2 damage\n";
+                                player.health = player.health - 2;
+                                break;
+                            case 5:
+                                cout << "You have used the Health Potion\n";
+                                player.health = player.health + 5;
+                                inventory[3] = "";
+                                break;
+                        }
+                    } while (bosshp >= 0 && player.health != 0);
+                    cout << "You have defeated Malakar!\nPeace returns to Elarion.\n";
+                    cout << "People sing your praises\nYou are hailed as a hero\n";
+                    cout << "You may be know as a hero but those you hurt know your truth\nYou are a monster\n";
+                    exit(0);
+                } else if (attack == 2 && player.intelligence >= 7 || inventory[1] == "Tome") {
+                    cout << "You have attacked enemy for 5 damage\n";
+                    bosshp = 15;
+                    cout << "You have been attacked for 2 damage\n";
+                    player.health = player.health - 2;
+                    cout << "Your next attack\n";
+                    cout << "How will you attack\n";
+                    cout << "1 With strength\n";
+                    cout << "2 With intelligence\n";
+                    cout << "3 With dexterity\n";
+                    cout << "4 with Tome of knowledge can only be used once";
+                    int start1;
+                    cin >> start1;
+                    do {
+                        cout << "Confirm your attack\n";
+                        cout << "1 With strength\n";
+                        cout << "2 With intelligence\n";
+                        cout << "3 With dexterity\n";
+                        cout << "4 with Tome of knowledge can only be used once";
+                        cout << "5 use health potion can only be used once \n";
+                        cin >> start1;
+                        switch (start1) {
+                            case 1:
+                                cout << "You have attacked enemy for 5 damage\n";
+                                bosshp = bosshp - 5;
+                                cout << "You have been attacked for 2 damage\n";
+                                player.health = player.health - 2;
+                                break;
+                            case 2:
+                                cout << "You have attacked enemy for 3 damage\n";
+                                bosshp = bosshp - 3;
+                                cout << "You have been attacked for 2 damage\n";
+                                player.health = player.health - 2;
+                                break;
+                            case 3:
+                                cout << "You have attacked enemy for 2 damage\n";
+                                bosshp = bosshp - 2;
+                                cout << "You have been attacked for 2 damage\n";
+                                player.health = player.health - 2;
+                                break;
+                            case 4:
+                                cout << "You have used the tome of knowledge\n";
+                                bosshp = bosshp - 10;
+                                cout << "You have been attacked for 2 damage\n";
+                                player.health = player.health - 2;
+                                inventory[1] = "";
+                                break;
+                            case 5:
+                                cout << "You have used the Health Potion\n";
+                                player.health = player.health + 5;
+                                inventory[3] = "";
+                                break;
+                        }
+                    } while (bosshp >= 0 && player.health != 0);
+                    cout << "You have defeated Malakar!\nPeace returns to Elarion.\n";
+                    cout << "You have defeated Malakar!\nPeace returns to Elarion.\n";
+                    cout << "People sing your praises\nYou are hailed as a hero\n";
+                    cout << "You may be know as a hero but those you hurt know your truth\nYou are a monster\n";
+                    exit(0);
+                } else if (attack == 3 && player.dexterity >= 7 || inventory[2] == "Boots") {
+                    cout << "You have attacked enemy for 5 damage\n";
+                    bosshp = 15;
+                    cout << "You have been attacked for 2 damage\n";
+                    player.health = player.health - 2;
+                    cout << "Your next attack\n";
+                    cout << "How will you attack\n";
+                    cout << "1 With strength\n";
+                    cout << "2 With intelligence\n";
+                    cout << "3 With dexterity\n";
+                    cout << "4 with Sword of light can only be used once";
+                    int start2;
+                    cin >> start2;
+                    do {
+                        cout << "Confirm your attack\n";
+                        cout << "1 With strength\n";
+                        cout << "2 With intelligence\n";
+                        cout << "3 With dexterity\n";
+                        cout << "4 with Tome of knowledge can only be used once";
+                        cout << "5 use health potion can only be used once \n";
+                        cin >> start2;
+                        switch (start2) {
+                            case 1:
+                                cout << "You have attacked enemy for 5 damage\n";
+                                bosshp = bosshp - 5;
+                                cout << "You have been attacked for 2 damage\n";
+                                player.health = player.health - 2;
+                                break;
+                            case 2:
+                                cout << "You have attacked enemy for 3 damage\n";
+                                bosshp = bosshp - 3;
+                                cout << "You have been attacked for 2 damage\n";
+                                player.health = player.health - 2;
+                                break;
+                            case 3:
+                                cout << "You have attacked enemy for 2 damage\n";
+                                bosshp = bosshp - 2;
+                                cout << "You have been attacked for 2 damage\n";
+                                player.health = player.health - 2;
+                                break;
+                            case 4:
+                                cout << "You have used the boots\n";
+                                bosshp = bosshp - 10;
+                                cout << "You have been attacked for 2 damage\n";
+                                player.health = player.health - 2;
+                                inventory[2] = "";
+                                break;
+                            case 5:
+                                cout << "You have used the Health Potion\n";
+                                player.health = player.health + 5;
+                                inventory[3] = "";
+                                break;
+                        }
+                    } while (bosshp >= 0 && player.health != 0);
+                    cout << "You have defeated Malakar!\nPeace returns to Elarion.\n";
+                    cout << "You have defeated Malakar!\nPeace returns to Elarion.\n";
+                    cout << "People sing your praises\nYou are hailed as a hero\n";
+                    cout << "You may be know as a hero but those you hurt know your truth\nYou are a monster\n";
+                    exit(0);
+                } else {
+                    cout << "You are not strong enough...\nGame Over\n";
+                    exit(0);
+                }
+                break;
+            case 3:
+                cout << "You have chosen to kill Malakar and take his place\n";
+                cout << "How will you attack him?\n";
+                cout << "1 With strength\n";
+                cout << "2 With intelligence\n";
+                cout << "3 With dexterity\n";
+                cin >> attack;
+                if (attack == 1 && player.strength >= 7 || inventory[0] == "Sword") {
+                    cout << "You have attacked enemy for 5 damage\n";
+                    bosshp = 15;
+                    cout << "You have been attacked for 3 damage\n";
+                    player.health = player.health - 3;
+                    cout << "Your next attack\n";
+                    cout << "How will you attack\n";
+                    cout << "1 With strength\n";
+                    cout << "2 With intelligence\n";
+                    cout << "3 With dexterity\n";
+                    cout << "4 with Sword of light can only be used once \n";
+                    cout << "5 heal with health potion can only be used once \n";
+                    int start;
+                    cin >> start;
+                    do {
+                        cout << "Confirm your attack\n";
+                        cout << "1 With strength\n";
+                        cout << "2 With intelligence\n";
+                        cout << "3 With dexterity\n";
+                        cout << "4 with Tome of knowledge can only be used once";
+                        cout << "5 use health potion can only be used once \n";
+                        cin >> start;
+                        switch (start) {
+                            case 1:
+                                cout << "You have attacked enemy for 5 damage\n";
+                                bosshp = bosshp - 5;
+                                cout << "You have been attacked for 2 damage\n";
+                                player.health = player.health - 2;
+                                break;
+                            case 2:
+                                cout << "You have attacked enemy for 3 damage\n";
+                                bosshp = bosshp - 3;
+                                cout << "You have been attacked for 2 damage\n";
+                                player.health = player.health - 2;
+                                break;
+                            case 3:
+                                cout << "You have attacked enemy for 2 damage\n";
+                                bosshp = bosshp - 2;
+                                cout << "You have been attacked for 2 damage\n";
+                                player.health = player.health - 2;
+                                break;
+                            case 4:
+                                cout << "You have used the Sword of Light\n";
+                                bosshp = bosshp - 10;
+                                cout << "You have been attacked for 2 damage\n";
+                                player.health = player.health - 2;
+                                break;
+                            case 5:
+                                cout << "You have used the Health Potion\n";
+                                player.health = player.health + 5;
+                                inventory[3] = "";
+                                break;
+                        }
+                    } while (bosshp >= 0 && player.health != 0);
+                    cout << "You are now the new evil overlord of Elarion\n";
+                    cout << "You are feared all across the world\n";
+                    cout << "You are the worlds new king\n";
+                    exit(0);
+                } else {
+                    cout << "Invalid choice, Malakar has killed you\n";
+                    exit(0);
+                }
+                break;
+            default:
+                cout << "Invalid choice, Malakar has killed you\n";
+                exit(0);
+        }
+    } else {
+        cout << "How will you attack him?\n";
+        cout << "1 With strength\n";
+        cout << "2 With intelligence\n";
+        cout << "3 With dexterity\n";
+        int attack1;
+        cin >> attack1;
+        if (attack1 == 1 && (player.strength >= 7 || inventory[0] == "Sword")) {
+            cout << "You have attacked enemy for 5 damage\n";
+            bosshp = bosshp - 5;
+            cout << "You have been attacked for 3 damage\n";
+            player.health = player.health - 3;
+            cout << "Your next attack\n";
+            cout << "How will you attack\n";
+            cout << "1 With strength\n";
+            cout << "2 With intelligence\n";
+            cout << "3 With dexterity\n";
+            cout << "4 With Sword of Light (can only be used once)\n";
+            cout << "5 Heal with Health Potion (can only be used once)\n";
+            int starA;
+            cin >> starA;
+            do {
+                cout << "Confirm your attack\n";
+                cout << "1 With strength\n";
+                cout << "2 With intelligence\n";
+                cout << "3 With dexterity\n";
+                cout << "4 With Sword of Light (can only be used once)\n";
+                cout << "5 Use Health Potion (can only be used once)\n";
+                int starB;
+                cin >> starB;
+                switch (starB) {
+                    case 1:
+                        cout << "You have attacked enemy for 5 damage\n";
+                        bosshp = bosshp - 5;
+                        cout << "You have been attacked for 2 damage\n";
+                        player.health = player.health - 2;
+                        break;
+                    case 2:
+                        cout << "You have attacked enemy for 3 damage\n";
+                        bosshp = bosshp - 3;
+                        cout << "You have been attacked for 2 damage\n";
+                        player.health = player.health - 2;
+                        break;
+                    case 3:
+                        cout << "You have attacked enemy for 2 damage\n";
+                        bosshp = bosshp - 2;
+                        cout << "You have been attacked for 2 damage\n";
+                        player.health = player.health - 2;
+                        break;
+                    case 4:
+                        cout << "You have used the Sword of Light\n";
+                        bosshp = bosshp - 10;
+                        cout << "You have been attacked for 2 damage\n";
+                        player.health = player.health - 2;
+                        break;
+                    case 5:
+                        cout << "You have used the Health Potion\n";
+                        player.health = player.health + 5;
+                        inventory[3] = "";
+                        break;
+                }
+            } while (bosshp > 0 && player.health > 0);
+            cout << "You have defeated Malakar!\nPeace returns to Elarion.\n";
+            cout << "You are hailed as a hero!\nYou are written into the annals of history.\n";
+            cout << "You have won!\nThank you for playing.\n";
+            exit(0);
+        } else if (attack1 == 2 && (player.intelligence >= 7 || inventory[1] == "Tome")) {
+            cout << "You have attacked enemy for 5 damage\n";
+            bosshp = 15;
+            cout << "You have been attacked for 2 damage\n";
+            player.health = player.health - 2;
+            cout << "Your next attack\n";
+            cout << "How will you attack\n";
+            cout << "1 With strength\n";
+            cout << "2 With intelligence\n";
+            cout << "3 With dexterity\n";
+            cout << "4 With Tome of Knowledge (can only be used once)\n";
+            cout << "5 Use Health Potion (can only be used once)\n";
+            int starC;
+            cin >> starC;
+            do {
+                cout << "Confirm your attack\n";
+                cout << "1 With strength\n";
+                cout << "2 With intelligence\n";
+                cout << "3 With dexterity\n";
+                cout << "4 With Tome of Knowledge (can only be used once)\n";
+                cout << "5 Use Health Potion (can only be used once)\n";
+                int starD;
+                cin >> starD;
+                switch (starD) {
+                    case 1:
+                        cout << "You have attacked enemy for 5 damage\n";
+                        bosshp = bosshp - 5;
+                        cout << "You have been attacked for 2 damage\n";
+                        player.health = player.health - 2;
+                        break;
+                    case 2:
+                        cout << "You have attacked enemy for 3 damage\n";
+                        bosshp = bosshp - 3;
+                        cout << "You have been attacked for 2 damage\n";
+                        player.health = player.health - 2;
+                        break;
+                    case 3:
+                        cout << "You have attacked enemy for 2 damage\n";
+                        bosshp = bosshp - 2;
+                        cout << "You have been attacked for 2 damage\n";
+                        player.health = player.health - 2;
+                        break;
+                    case 4:
+                        cout << "You have used the Tome of Knowledge\n";
+                        bosshp = bosshp - 10;
+                        cout << "You have been attacked for 2 damage\n";
+                        player.health = player.health - 2;
+                        inventory[1] = "";
+                        break;
+                    case 5:
+                        cout << "You have used the Health Potion\n";
+                        player.health = player.health + 5;
+                        inventory[3] = "";
+                        break;
+                }
+            } while (bosshp > 0 && player.health > 0);
+            cout << "You have defeated Malakar!\nPeace returns to Elarion.\n";
+            cout << "You are hailed as a hero!\nYou are written into the annals of history.\n";
+            cout << "You have won!\nThank you for playing.\n";
+            exit(0);
+        } else if (attack1 == 3 && (player.dexterity >= 7 || inventory[2] == "Boots")) {
+            cout << "You have attacked enemy for 5 damage\n";
+            bosshp = 15;
+            cout << "You have been attacked for 2 damage\n";
+            player.health = player.health - 2;
+            cout << "Your next attack\n";
+            cout << "How will you attack\n";
+            cout << "1 With strength\n";
+            cout << "2 With intelligence\n";
+            cout << "3 With dexterity\n";
+            cout << "4 With Boots of Speed (can only be used once)\n";
+            cout << "5 Use Health Potion (can only be used once)\n";
+            int starE;
+            cin >> starE;
+            do {
+                cout << "Confirm your attack\n";
+                cout << "1 With strength\n";
+                cout << "2 With intelligence\n";
+                cout << "3 With dexterity\n";
+                cout << "4 With Boots of Speed (can only be used once)\n";
+                cout << "5 Use Health Potion (can only be used once)\n";
+                int starF;
+                cin >> starF;
+                switch (starF) {
+                    case 1:
+                        cout << "You have attacked enemy for 5 damage\n";
+                        bosshp = bosshp - 5;
+                        cout << "You have been attacked for 2 damage\n";
+                        player.health = player.health - 2;
+                        break;
+                    case 2:
+                        cout << "You have attacked enemy for 3 damage\n";
+                        bosshp = bosshp - 3;
+                        cout << "You have been attacked for 2 damage\n";
+                        player.health = player.health - 2;
+                        break;
+                    case 3:
+                        cout << "You have attacked enemy for 2 damage\n";
+                        bosshp = bosshp - 2;
+                        cout << "You have been attacked for 2 damage\n";
+                        player.health = player.health - 2;
+                        break;
+                    case 4:
+                        cout << "You have used the Boots of Speed\n";
+                        bosshp = bosshp - 10;
+                        cout << "You have been attacked for 2 damage\n";
+                        player.health = player.health - 2;
+                        inventory[2] = "";
+                        break;
+                    case 5:
+                        cout << "You have used the Health Potion\n";
+                        player.health = player.health + 5;
+                        inventory[3] = "";
+                        break;
+                }
+            } while (bosshp > 0 && player.health > 0);
+            cout << "You have defeated Malakar!\nPeace returns to Elarion.\n";
+            cout << "You are hailed as a hero!\nYou are written into the annals of history.\n";
+            cout << "You have won!\nThank you for playing.\n";
+            exit(0);
+        } else {
+            cout << "You are not strong enough...\nGame Over\n";
+            exit(0);
+        }
     }
 }
 void saveGame(const Player &player, string inventory[]) {
