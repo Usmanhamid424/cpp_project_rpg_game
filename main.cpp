@@ -3,7 +3,6 @@
 #include <ctime>
 #include <fstream>
 using namespace std;
-
 struct Player {
     string name;
     int health;
@@ -171,12 +170,61 @@ void recursiveBattleRound(Player &player, int &enehp, string inventory[]) {
             }
             break;
     }
-    if (enehp >= 0 && player.health >= 0) {
+    if(enehp >= 0 && player.health >= 0){
         recursiveBattleRound(player, enehp, inventory);
     }
 }
-
-void fightBoss(Player &player, string inventory[]) {
+int Battle(Player &player, int &enehp, int &strength, int &intelligence, int &dexterity, string inventory[]) {
+    int fight;
+    int star;
+    srand(time(0));
+    int random = (rand() % 100) + 1;
+    cout << "You have gone to train\n";
+    cout << "You s0ee an enemy\n";
+    cout << "You face an enemy\n";
+    cout << "How will you fight?\n";
+    cout << "Enemy has 10 health\n";
+    cout << "Enemy does 2 damage per hit\n";
+    cout << "How will you fight?\n";
+    cout << "1 With strength\n";
+    cout << "2 With intelligence\n";
+    cout << "3 With dexterity\n";
+    cin >> fight;
+    if ((fight == 1 && strength > 5) || (fight == 2 && intelligence > 5) || (fight == 3 && dexterity > 5)) {
+        cout << "You have attacked enemy for 5 damage\n";
+        enehp = enehp - 3;
+        cout << "You have been attacked for 2 damage\n";
+        player.health = player.health - 2;
+        cout << "Your next attack\n";
+        cout << "How will you attack\n";
+        cout << "1 With strength\n";
+        cout << "2 With intelligence\n";
+        cout << "3 With dexterity\n";
+        cout << "4 with Sword of light can only be used once\n";
+        recursiveBattleRound(player, enehp, inventory);
+        if (player.health <= 0) {
+            cout << "You have lost\n";
+        } else if (enehp <= 0) {
+            cout << "You have won\n";
+            cout << "You have leveled up\n";
+            if (player.health <= 20) {
+                player.health = 20;
+                cout << "Your health is now " << player.health << "\n";
+            }
+            increaseStat(&player.strength, 1);
+            increaseStat(&player.intelligence, 1);
+            increaseStat(&player.dexterity, 1);
+        } else {
+            cout << "Error\n";
+        }
+        cout << "You have defeated the enemy \n";
+        cout << "You have obtained a Health Potion\n";
+        inventory[3] = "Health Potion";
+        cout << "You have gained 10 Gold\n";
+    }
+    return 0;
+}
+void fightBoss(Player &player, string inventory[]){
     int bosshp = 20;
     cout << "You face Malakar the Shadowbinder!\n";
     if (player.rep < 10) {
@@ -188,7 +236,7 @@ void fightBoss(Player &player, string inventory[]) {
         cout << "3 kill him and take his place\n";
         int yo;
         cin >> yo;
-        switch (yo) {
+        switch (yo){
             case 1:
                 cout << "You have joined Malakar\n";
                 cout << "You invade the human plains with him\n";
@@ -795,6 +843,11 @@ int main() {
         cout << "6 To see your stats\n";
         cout << "7 To train\n";
         cout << "8 rescue mission\n";
+        cout << "9 invasion\n";
+        cout << "10 Save game\n";
+        cout << "11 Load game\n";
+        cout << "12 Print inventory\n";
+        cout << "13 Print map\n";
         cout << "-1 To end the game\n";
         cin >> number;
         switch (number) {
@@ -993,6 +1046,157 @@ int main() {
                 }
                 break;
             }
+            case 9:{
+                cout << "You have heard of a war\n";
+                cout << "You leave to join the army\n";
+                cout << "The conscription dismisses you as weak\n";
+                cout << "You decide to beat him in a fight\n";
+                Battle(player, enehp, player.strength, player.intelligence, player.dexterity, inventory);
+                cout << "The commanding officer sees your strength\n";
+                cout << "He puts you as a small brigade commander\n";
+                cout << "The war starts and your troops wait for your command\n";
+                int bitch;
+                int enetrop = 200;
+                int troops = 100;
+                cout << "You see the main forces clashing\n";
+                cout << "What will you do\n";
+                cout << "1 Wait\n";
+                cout << "2 Charge\n";
+                cout << "3 Find a better position\n";
+                cout << "4 Loot dead bodies\n";
+                int boi;
+                cin >> boi;
+                do {
+                    switch (boi) {
+                        case 1:
+                            cout << "You wait and see the battle\n";
+                            cout << "The main forces are fully battling\n";
+                            cout << "How will you proceed\n";
+                            cout << "1 Look to attack from above\n";
+                            cout << "2 Look to attack from the back\n";
+                            cout << "3 Go in guns blazing\n";
+                            int bor;
+                            cin >> bor;
+                            switch (bor) {
+                                case 1:
+                                    cout << "You have attacked from above\n";
+                                    troops = troops - 20;
+                                    enetrop = enetrop - 50;
+                                    cout << "You have lost 20 troops\n";
+                                    cout << "You have " << troops << " troops left\n";
+                                    break;
+                                case 2:
+                                    cout << "You have attacked from the back\n";
+                                    enetrop = enetrop - 100;
+                                    troops = troops - 30;
+                                    cout << "You have lost 30 troops\n";
+                                    cout << "You have " << troops << " troops left\n";
+                                    break;
+                                case 3:
+                                    cout << "You have gone in guns blazing\n";
+                                    cout << "You have lost the battle\n";
+                                    troops = troops - 100;
+                                    cout << "You have lost all your troops\nGame Over\n";
+                                    return 0;
+                                default:
+                                    cout << "Invalid choice, you lose the battle\nGame Over\n";
+                                    return 0;
+                            }
+                            break;
+                        case 2: {
+                            cout << "You have charged into battle\n";
+                            if (player.strength >= 7) {
+                                cout << "You have won the battle\n";
+                                enetrop = enetrop - 100;
+                                troops = troops - 30;
+                                cout << "You have lost 30 troops\n";
+                                cout << "You have " << troops << " troops left\n";
+                            } else {
+                                cout << "You have lost the battle\n";
+                                troops = troops - 100;
+                                cout << "You have lost all your troops\nGame Over\n";
+                                return 0;
+                            }
+                            break;
+                        }
+                        case 3: {
+                            cout << "You have found a better position\n";
+                            cout << "You see gold of the enemy\n";
+                            cout << "Do you\n";
+                            cout << "1 Attack the enemy\n";
+                            cout << "2 Loot the gold\n";
+                            int ho;
+                            cin >> ho;
+                            switch (ho) {
+                                case 1:
+                                    cout << "You have attacked the enemy\n";
+                                    enetrop = enetrop - 50;
+                                    troops = troops - 40;
+                                    cout << "You have lost 40 troops\n";
+                                    cout << "You have " << troops << " troops left\n";
+                                    break;
+                                case 2:
+                                    cout << "You have looted the gold\n";
+                                    player.money += 200;
+                                    player.rep -= 5;
+                                    cout << "You have gained 200 gold\n";
+                                    cout << "You have lost reputation\n";
+                                    break;
+                                default:
+                                    cout << "Invalid choice, you lose the battle\nGame Over\n";
+                                    return 0;
+                            }
+                            break;
+                        }
+                        case 4: {
+                            cout << "You have looted the dead bodies\n";
+                            player.money += 100;
+                            player.rep -= 5;
+                            troops = 0;
+                            cout << "You have gained 100 gold\n";
+                            cout << "You have lost reputation\n";
+                            bitch = 0;
+                            break;
+                        }
+                        default:
+                            cout << "Invalid choice, you lose the battle\nGame Over\n";
+                            return 0;
+                    }
+                } while ((enetrop > 0 && troops > 0));
+                if (troops <= 0) {
+                    cout << "You have lost all your troops\n";
+                } else if (enetrop <= 0) {
+                    cout << "You have won the battle\n";
+                    cout << "You have been promoted to general\n";
+                    player.rep += 10;
+                } else {
+                    cout << "Error\n";
+                }
+                break;
+            }
+            case 10: {
+                saveGame(player, inventory);
+                break;
+            }
+            case 11: {
+                loadGame(player, inventory);
+                break;
+            }
+            case 12: {
+                printInventory(inventory, 10);
+                break;
+            }
+            case 13: {
+                printMap(gameMap, 7);
+                break;
+            }
+            default:
+                cout << "Invalid choice, try again\n";
+                break;
         }
     }
+    cout << "\nDo you wish to continue? (1 = yes, 0 = no)\n";
+    cin >> con;
+    cout << "Thanks for playing!\n";
+    return 0;
 }
