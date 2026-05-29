@@ -97,9 +97,9 @@ BAI Student @ GIK Institute of Engineering Sciences and Technology ('29)
 [LinkedIn](https://www.linkedin.com/in/zunaintahir) | [GitHub](https://github.com/ZunainTahir)
 
 **Usman Hamid**
-BAI Student @ GIK Institute of Engineering Sciences and Technology
+BAI Student @ GIK Institute of Engineering Sciences and Technology ('29)  
 [GitHub](https://github.com/Usmanhamid424)
----
+
 
 ## 📌 Note
 
